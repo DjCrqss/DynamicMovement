@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DynamicMovement (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "DynamicMovement (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
