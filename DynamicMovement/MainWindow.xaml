@@ -9,8 +9,40 @@
     mc:Ignorable="d"
     Title="DynamicMovement">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Activate</Button>
-        <TextBlock x:Name="myTextBlock" Text="HELLO" Margin="0,0,0,0"/>
-    </StackPanel>
+    <Grid Background="{StaticResource Background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <!-- Left Panel-->
+        <Grid Margin="16,16,8,16" Grid.Column="0">
+            <Grid Margin="0,0,0,0" Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ComboBox Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="80" Padding="32" FontSize="13" CornerRadius="8" Background="{StaticResource ElementBg}">
+                    <ComboBoxItem Content="Default Profile" IsSelected="True" />
+                </ComboBox>
+                <Grid Margin="16,16,16,8" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Rectangle Margin="0,0,0,8" Grid.Row="0" Stroke="Gray" Fill="LightGray" StrokeThickness="1" />
+                    <Rectangle Margin="0,0,0,8" Grid.Row="1" Stroke="Gray" Fill="LightGray" StrokeThickness="1" />
+                    <Rectangle Margin="0,0,0,8" Grid.Row="2" Stroke="Gray" Fill="LightGray" StrokeThickness="1" />
+                    <Rectangle Margin="0,0,0,8" Grid.Row="3" Stroke="Gray" Fill="LightGray" StrokeThickness="1" />
+                </Grid>
+            </Grid>
+        </Grid>
+        <!-- Right Panel-->
+        <StackPanel Margin="8,16,16,16" Grid.Column="1" Orientation="Vertical" Background="{StaticResource ElementBg}" UseLayoutRounding="False" CornerRadius="8" Padding="32">
+            <Button x:Name="myButton" Click="myButton_Click">Activate</Button>
+            <TextBlock x:Name="myTextBlock" Text="HELLO" Margin="0,0,0,0"/>
+        </StackPanel>
+    </Grid>
+    
 </Window>

@@ -43,6 +43,9 @@ namespace DynamicMovement
         const ushort VK_SHIFT = 0xA0; // Virtual key code for Shift
 
 
+        private static KeyboardHandler kbHandler;
+
+
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -51,6 +54,7 @@ namespace DynamicMovement
         public App()
         {
             this.InitializeComponent();
+            kbHandler = new KeyboardHandler();
 
             // write to console
             Debug.WriteLine("App started.");
@@ -164,7 +168,7 @@ namespace DynamicMovement
                         shiftDown = false;
                     }
                 }
-                Debug.WriteLine("Shift active: " + shiftDown + "\tCtrl active: " + ctrlDown);
+                //Debug.WriteLine("Shift active: " + shiftDown + "\tCtrl active: " + ctrlDown);
 
                 Thread.Sleep(10);
             }
