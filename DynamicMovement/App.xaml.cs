@@ -30,6 +30,20 @@ namespace DynamicMovement
     /// </summary>
     public partial class App : Application
     {
+        // instance variables
+        private static readonly List<ushort> keycodes = new List<ushort> { 26, 4, 22, 7 };
+        private static readonly List<string> keynames = new List<string> { "W", "A", "S", "D" };
+        private static List<float> pressures = new List<float> { 0, 0, 0, 0 };
+        private static bool shiftDown = false;
+        private static bool ctrlDown = false;
+        public static bool active = false;
+
+        // modifiers
+        const ushort VK_CTRL = 0xA2;  // Virtual key code for Ctrl
+        const ushort VK_SHIFT = 0xA0; // Virtual key code for Shift
+
+
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -67,9 +81,6 @@ namespace DynamicMovement
 
         private void runLoop()
         {
-            // create array of WASD keycodes
-            var keycodes = new List<ushort> { 26, 4, 22, 7};
-            var pressures = new List<float> { 0, 0, 0, 0};
 
             while (true)
             {
@@ -98,6 +109,62 @@ namespace DynamicMovement
                 {
                     Debug.WriteLine($"Failed to update text: {e}");
                 }
+
+                // calculate movement modifiers
+                var maxPressure = pressures.Max();
+                // if max is below 0.3 hold down ctrl
+                if (maxPressure > 0 && active)
+                {
+                    if (maxPressure < 0.5)
+                    {
+                        if (!ctrlDown)
+                        {
+                            // TODO: make it queue holding down ctrl in a few milliseconds, to prevent accidental presses when doing full press
+                            // TODO: make it only press CTRL once a movement key is actually pressed once above is correct
+                            KeyboardSimulator.PressKey(VK_CTRL);
+                            ctrlDown = true;
+                        }
+                    }
+                    else
+                    {
+                        if (ctrlDown)
+                        {
+                            KeyboardSimulator.ReleaseKey(VK_CTRL);
+                            ctrlDown = false;
+                        }
+                    }
+
+                    if (maxPressure > 0.98)
+                    {
+                        if (!shiftDown)
+                        {
+                            KeyboardSimulator.PressKey(VK_SHIFT);
+                            shiftDown = true;
+                        }
+                    }
+                    else
+                    {
+                        if (shiftDown)
+                        {
+                            KeyboardSimulator.ReleaseKey(VK_SHIFT);
+                            shiftDown = false;
+                        }
+                    }
+                }
+                else {
+                    if (ctrlDown)
+                    {
+                        KeyboardSimulator.ReleaseKey(VK_CTRL);
+                        ctrlDown = false;
+                    }
+
+                    if (shiftDown)
+                    {
+                        KeyboardSimulator.ReleaseKey(VK_SHIFT);
+                        shiftDown = false;
+                    }
+                }
+                Debug.WriteLine("Shift active: " + shiftDown + "\tCtrl active: " + ctrlDown);
 
                 Thread.Sleep(10);
             }

@@ -10,7 +10,7 @@
     Title="DynamicMovement">
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <!--<Button x:Name="myButton" Click="myButton_Click">Click Me</Button>-->
+        <Button x:Name="myButton" Click="myButton_Click">Activate</Button>
         <TextBlock x:Name="myTextBlock" Text="HELLO" Margin="0,0,0,0"/>
     </StackPanel>
 </Window>

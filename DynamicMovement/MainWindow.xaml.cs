@@ -28,10 +28,18 @@ namespace DynamicMovement
             this.InitializeComponent();
         }
 
-        //private void myButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    myButton.Content = "Clicked";
-        //}
+        private void myButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.active = !App.active;
+            if (App.active)
+            {
+                myButton.Content = "Stop";
+            }
+            else
+            {
+                myButton.Content = "Start";
+            }
+        }
 
         public void updateText(string text)
         {
